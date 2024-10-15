@@ -9,11 +9,6 @@ public class Path extends MazeObject{
     }
 
     @Override
-    protected MazeObject getThisObject() {
-        return this;
-    }
-
-    @Override
     public boolean isPassable() {
         return true;
     }
