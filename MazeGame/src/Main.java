@@ -9,11 +9,12 @@ public class Main {
         printMaze(mazeBuilder.getMaze());
     }
 
-    public static void printMaze(List<List<MazeObject>> maze) {
-        for(List<MazeObject> row : maze) {
-            for(MazeObject obj : row) {
+    public static void printMaze(MazeObject[][] maze) {
+        for(int i = 0; i < maze.length; i++) {
+            for(int j = 0; j < maze[i].length; j++) {
+                MazeObject obj = maze[i][j];
                 char value = obj.isPassable() ? '.' : '#';
-                System.out.print(value + " ");
+                System.out.printf("%s", value);
             }
             System.out.print("\n");
         }
