@@ -1,5 +1,7 @@
 package model;
 
+import model.MazeObjects.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +31,7 @@ public class MazeBuilder {
         // create top wall
         ArrayList<MazeObject> topRow = new ArrayList<>(this.columns);
         for(int i = 0; i < this.columns; i++) {
-            topRow.add(new MazeObject(i,0, false));
+            topRow.add(new Wall(i,0));
         }
         this.maze.add(topRow);
 
@@ -37,14 +39,14 @@ public class MazeBuilder {
         for(int i = 1; i < this.rows - 1; i++) {
             ArrayList<MazeObject> currentRow = new ArrayList<>(this.columns);
 
-            currentRow.add(new MazeObject(0, i, false));
+            currentRow.add(new Wall(0, i));
 
             // create the columns of each row
             for(int j = 1; j < this.columns - 1; j++) {
-                currentRow.add(new MazeObject(j, i, true));
+                currentRow.add(new Path(j, i));
             }
 
-            currentRow.add(new MazeObject(this.columns - 1, i, false));
+            currentRow.add(new Wall(this.columns - 1, i));
 
             this.maze.add(currentRow);
         }
@@ -52,7 +54,7 @@ public class MazeBuilder {
         // create bottom wall
         ArrayList<MazeObject> bottomRow = new ArrayList<>(this.columns);
         for(int i = 0; i < this.columns; i++) {
-            bottomRow.add(new MazeObject(i, this.columns - 1, false));
+            bottomRow.add(new Wall(i, this.columns - 1));
         }
         this.maze.add(bottomRow);
     }

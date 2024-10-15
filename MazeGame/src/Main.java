@@ -1,5 +1,5 @@
 import model.MazeBuilder;
-import model.MazeObject;
+import model.MazeObjects.MazeObject;
 
 import java.util.List;
 
