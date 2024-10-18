@@ -6,6 +6,7 @@ import java.util.*;
 
 public class MazeBuilder {
 
+    // Why does MazeBuilder have all these fields?
     private int rows;
     private int columns;
     private MazeObject[][] maze;
@@ -14,14 +15,16 @@ public class MazeBuilder {
     private final int MIN_COLUMNS = 4;
 
 
-    private MazeBuilder() {}
 
-    public MazeBuilder(int rows, int columns) {
-        if(rows < MIN_ROWS || columns < MIN_COLUMNS) {
+    public MazeBuilder() {
+        // What's all this for?
+        if (rows < MIN_ROWS || columns < MIN_COLUMNS) {
             throw new IllegalArgumentException("MazeBuilder was intended to create at least a " + MIN_ROWS + "x" + MIN_COLUMNS + " maze.");
         }
         this.rows = rows;
         this.columns = columns;
+
+
         initializeMaze();
         generateMaze();
     }

@@ -2,7 +2,7 @@ package model.MazeObjects;
 
 import java.util.Objects;
 
-public abstract class MazeObject implements IsPassable {
+public class MazeObject {
     protected int x;
     protected int y;
     protected boolean visible;
@@ -16,13 +16,27 @@ public abstract class MazeObject implements IsPassable {
         this.visible = false;
     }
 
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
+
     /**
      * Used to figure out what object is occupying a space
      * If a space is occupied by a cat, then a mouse entering will end the game
      *
      * @return the object occupying that space
      */
-    protected abstract MazeObject getThisObject();
+    protected MazeObject getThisObject() {
+        return null;
+    }
 
     public int getX() {
         return this.x;

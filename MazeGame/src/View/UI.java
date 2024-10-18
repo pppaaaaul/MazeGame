@@ -1,6 +1,6 @@
 package View;
 
-import model.MazeObjects.MazeObject;
+import model.MazeObjects.*;
 
 public class UI {
     public void displayGreeting() {
@@ -26,7 +26,12 @@ public class UI {
 
     public void displayMaze(MazeObject[][] maze) {
         // Iterate over the MazeObjects
+//        for (MazeObject m : maze) {
+//            if (m.getThisObject().equals())
+//        }
     }
+
+
 
 
 }
