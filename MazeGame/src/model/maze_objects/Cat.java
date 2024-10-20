@@ -1,11 +1,9 @@
-package model.MazeObjects;
-
-import model.MazeObjects.MazeObject;
+package model.maze_objects;
 
 public class Cat extends MazeObject {
-    public Cat() {
-        super();
-        this.visible = true;
+
+    public Cat(int x, int y) {
+        super(x, y, true, true);
     }
 
     @Override
@@ -13,8 +11,4 @@ public class Cat extends MazeObject {
         return this;
     }
 
-    @java.lang.Override
-    public boolean isPassable() {
-        return true;
-    }
 }

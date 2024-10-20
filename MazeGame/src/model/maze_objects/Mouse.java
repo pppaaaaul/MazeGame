@@ -1,11 +1,10 @@
-package model.MazeObjects;
+package model.maze_objects;
 
 public class Mouse extends MazeObject{
     private int cheeseCollected;
 
-    public Mouse() {
-        super();
-        this.visible = true;
+    public Mouse(int x, int y) {
+        super(x, y, true, true);
         cheeseCollected = 0;
     }
 
@@ -30,10 +29,5 @@ public class Mouse extends MazeObject{
                 // get object right of this one
             }
         }
-    }
-
-    @Override
-    public boolean isPassable() {
-        return false;
     }
 }

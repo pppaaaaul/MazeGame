@@ -3,9 +3,10 @@ package model.maze_objects;
 import java.util.Objects;
 
 public class MazeObject implements IsPassable {
-    private int x;
-    private int y;
-    private boolean isPassable;
+    protected int x;
+    protected int y;
+    protected boolean isPassable;
+    protected boolean isVisible;
 
     private MazeObject() {}
 
@@ -13,6 +14,14 @@ public class MazeObject implements IsPassable {
         this.x = x;
         this.y = y;
         this.isPassable = isPassable;
+        this.isVisible = false;
+    }
+
+    public MazeObject(int x, int y, boolean isPassable, boolean isVisible) {
+        this.x = x;
+        this.y = y;
+        this.isPassable = isPassable;
+        this.isVisible = isVisible;
     }
 
     public int getX() {
@@ -25,6 +34,22 @@ public class MazeObject implements IsPassable {
     public void setPassable(boolean isPassable) {
         this.isPassable = isPassable;
     }
+
+    public boolean isVisible() {
+        return this.isVisible;
+    }
+
+
+
+
+    // still deciding on this ....
+    protected MazeObject getThisObject(){
+        return null;
+    }
+
+
+
+
 
     @Override
     public boolean isPassable() {

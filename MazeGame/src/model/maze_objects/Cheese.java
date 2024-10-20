@@ -1,10 +1,10 @@
-package model.MazeObjects;
+package model.maze_objects;
 
 
 public class Cheese extends MazeObject {
-    public Cheese() {
-        super();
-        this.visible = true;
+
+    public Cheese(int x, int y) {
+        super(x, y, true, true);
     }
 
     @Override
@@ -12,8 +12,4 @@ public class Cheese extends MazeObject {
         return this;
     }
 
-    @Override
-    public boolean isPassable() {
-        return true;
-    }
 }
