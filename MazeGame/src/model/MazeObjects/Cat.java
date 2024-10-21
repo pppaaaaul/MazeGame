@@ -3,18 +3,20 @@ package model.MazeObjects;
 import model.MazeObjects.MazeObject;
 
 public class Cat extends MazeObject {
-    public Cat() {
-        super();
+    private String lastMove;
+
+    public Cat(int row, int col) {
+        super(int row, int col);
         this.visible = true;
+        lastMove = null;
+    }
+
+    public String getLastMove() {
+        return lastMove;
     }
 
     @Override
-    protected MazeObject getThisObject() {
-        return this;
-    }
-
-    @java.lang.Override
-    public boolean isPassable() {
-        return true;
+    public String getThisObject() {
+        return "Cat";
     }
 }

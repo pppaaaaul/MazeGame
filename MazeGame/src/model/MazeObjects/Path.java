@@ -4,15 +4,9 @@ public class Path extends MazeObject{
 
     private Path() {}
 
-    public Path(int x, int y) {
-        super(x,y);
+    public Path(int row, int col) {
+        super(row,col);
     }
-
-    @Override
-    public boolean isPassable() {
-        return true;
-    }
-
 
     @Override
     public boolean equals(Object o) {
@@ -28,7 +22,12 @@ public class Path extends MazeObject{
 
         Path path = (Path)o;
 
-        return this.x == path.x
-                && this.y == path.y;
+        return this.row == path.row
+                && this.col == path.col;
+    }
+
+    @Override
+    public String getThisObject() {
+        return "Path";
     }
 }

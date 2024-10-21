@@ -1,6 +1,6 @@
 package model.MazeObjects;
 
-public class Mouse extends MazeObject{
+public class Mouse extends MazeObject {
     private int cheeseCollected;
 
     public Mouse() {
@@ -9,13 +9,16 @@ public class Mouse extends MazeObject{
         cheeseCollected = 0;
     }
 
-    @Override
-    public MazeObject getThisObject() {
-        return this;
+    public int getCheeseCollected() {
+        return cheeseCollected;
+    }
+
+    public void incCheeseCollected() {
+        cheeseCollected++;
     }
 
     @Override
-    public boolean isPassable() {
-        return false;
+    public String getThisObject() {
+        return "Mouse";
     }
 }

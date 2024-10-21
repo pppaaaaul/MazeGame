@@ -8,12 +8,7 @@ public class Cheese extends MazeObject {
     }
 
     @Override
-    public MazeObject getThisObject() {
-        return this;
-    }
-
-    @Override
-    public boolean isPassable() {
-        return true;
+    public String getThisObject() {
+        return "Cheese";
     }
 }

@@ -3,50 +3,48 @@ package model.MazeObjects;
 import java.util.Objects;
 
 public class MazeObject {
-    protected int x;
-    protected int y;
+    protected int row;
+    protected int col;
     protected boolean visible;
 
     protected MazeObject() {}
     // What's this used for? Walls and Empty squares?
 
-    protected MazeObject(int x, int y) {
-        this.x = x;
-        this.y = y;
+    protected MazeObject(int row, int col) {
+        this.row = row;
+        this.col = col;
         this.visible = false;
     }
 
-    public void setX(int x) {
-        this.x = x;
+    public void setRow(int row) {
+        this.row = row;
     }
 
-    public void setY(int y) {
-        this.y = y;
+    public void setCol(int col) {
+        this.col = col;
     }
 
-    public void setVisible(boolean visible) {
-        this.visible = visible;
+    public void setVisible() {
+        visible = true;
     }
 
-    /**
-     * Used to figure out what object is occupying a space
-     * If a space is occupied by a cat, then a mouse entering will end the game
-     *
-     * @return the object occupying that space
-     */
-    protected MazeObject getThisObject() {
-        return null;
+    public boolean isVisible() {
+        return visible;
     }
 
-    public int getX() {
-        return this.x;
+    public int getRow() {
+        return this.row;
     }
-    public int getY() {
-        return this.y;
+    public int getCol() {
+        return this.col;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.x,this.y);
+        return Objects.hash(this.row,this.col);
+    }
+
+    public String getThisObject() {
+        return null;
     }
 }

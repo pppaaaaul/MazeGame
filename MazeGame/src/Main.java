@@ -1,27 +1,43 @@
 import model.Maze;
-import model.MazeBuilder;
-import model.MazeObjects.MazeObject;
+import View.UI;
 
-import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
         Maze maze = new Maze();
 
-        // The Maze class is supposed to have a maze object
-//        MazeBuilder mazeBuilder = new MazeBuilder(15,20);
-//        printMaze(mazeBuilder.getMaze());
+        UI.displayGreeting();
+        gameLoop(maze);
+
     }
 
-    // Main shouldn't print anything to the screen
-//    public static void printMaze(MazeObject[][] maze) {
-//        for(int i = 0; i < maze.length; i++) {
-//            for(int j = 0; j < maze[i].length; j++) {
-//                MazeObject obj = maze[i][j];
-//                char value = obj.isPassable() ? '.' : '#';
-//                System.out.printf("%s", value);
-//            }
-//            System.out.print("\n");
-//        }
-//    }
+    public static void gameLoop(Maze maze) {
+        UI.displayOptions();
+        UI.displayMaze(maze);
+        char input = UI.getUserInput();
+        try {
+            if (UI.processUserInput(input, maze)) {
+                gameLoop(maze);
+            }
+        } catch (InvalidExpressionException | InvalidMoveException e) {
+            System.out.println("Invalid move: " + e);
+            processValidUserInputLoop(maze);
+        }
+        if (UI.checkGameState(maze)) {
+            maze.moveCats();
+            gameLoop(maze);
+        } else {
+            System.out.println("Thanks for playing!");
+        }
+    }
+
+    public static void processValidUserInputLoop(Maze maze) {
+        char input = UI.getUserInput();
+        try {
+            UI.processUserInput(input, maze);
+        } catch (InvalidExpressionException | InvalidMoveException e) {
+            System.out.println("Error: " + e);
+            processValidUserInputLoop(maze);
+        }
+    }
 }

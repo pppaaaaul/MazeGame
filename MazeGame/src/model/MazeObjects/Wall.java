@@ -6,13 +6,8 @@ public class Wall extends MazeObject{
 
     private Wall() {}
 
-    public Wall(int x, int y) {
-        super(x,y);
-    }
-
-    @Override
-    public boolean isPassable() {
-        return false;
+    public Wall(int row, int col) {
+        super(row,col);
     }
 
     @Override
@@ -29,8 +24,13 @@ public class Wall extends MazeObject{
 
         Wall wall = (Wall)o;
 
-        return this.x == wall.x
-                && this.y == wall.y;
+        return this.row == wall.row
+                && this.col == wall.col;
+    }
+
+    @Override
+    public String getThisObject() {
+        return "Wall";
     }
 
 }
