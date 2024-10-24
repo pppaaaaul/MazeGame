@@ -1,6 +1,6 @@
-package model;
+package Model;
 
-import model.maze_objects.MazeObject;
+import Model.Maze_Objects.*;
 
 import java.util.*;
 
@@ -14,6 +14,7 @@ import java.util.*;
  */
 public final class MazeBuilder {
 
+    // TODO: Paul, why are these necessary? Can't you call function in Maze to get these?
     private final int rows;
     private final int columns;
     private MazeObject mouse;

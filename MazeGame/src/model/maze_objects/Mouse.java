@@ -1,4 +1,4 @@
-package model.maze_objects;
+package Model.Maze_Objects;
 
 public class Mouse extends MazeObject {
     private int cheeseCollected;

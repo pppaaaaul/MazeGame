@@ -1,11 +1,11 @@
 // Change imports to    View.InvalidExpressionException;
-//                      model.Maze;
+//                      Model.Maze;
 //                      View.UI;
-//                      model.MazeObjects.InvalidMoveException;
+//                      Model.MazeObjects.InvalidMoveException;
 
 import View.*;
-import model.*;
-import model.MazeObjects.*;
+import Model.*;
+import Model.Maze_Objects.*;
 
 public class Main {
 

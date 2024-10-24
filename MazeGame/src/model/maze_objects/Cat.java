@@ -1,4 +1,4 @@
-package model.maze_objects;
+package Model.Maze_Objects;
 
 public class Cat extends MazeObject {
     private int lastMove;
@@ -16,4 +16,7 @@ public class Cat extends MazeObject {
         this.lastMove = lastMove;
     }
 
+    public int getCol() {
+        return super.getCol();
+    }
 }

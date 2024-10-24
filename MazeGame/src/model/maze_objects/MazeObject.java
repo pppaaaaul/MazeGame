@@ -1,4 +1,4 @@
-package model.maze_objects;
+package Model.Maze_Objects;
 
 import java.util.Objects;
 
@@ -74,5 +74,9 @@ public class MazeObject {
     @Override
     public int hashCode() {
         return Objects.hash(this.row, this.col, this.passable);
+    }
+
+    public void setPassable(boolean passable) {
+        this.passable = passable;
     }
 }

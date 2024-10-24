@@ -1,6 +1,6 @@
-package model;
+package Model;
 
-import model.maze_objects.*;
+import Model.Maze_Objects.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +33,7 @@ public class Maze implements Iterable<Cat> {
         gameState = 'C';
         maze[1][1] = mouse;
         maze = new MazeBuilder(NUM_OF_ROWS, NUM_OF_COLUMNS).getMaze();
-        putObjectsInMaze();
+//        putObjectsInMaze();
     }
 
     private void initializeCats() {
