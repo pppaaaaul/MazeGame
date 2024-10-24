@@ -1,14 +1,19 @@
 package model.maze_objects;
 
 public class Cat extends MazeObject {
+    private int lastMove;
 
-    public Cat(int x, int y) {
-        super(x, y, true, true);
+    public Cat(int row, int col) {
+        super(row, col, true, true);
+        lastMove = -1; // no move made yet
     }
 
-    @Override
-    protected MazeObject getThisObject() {
-        return this;
+    public int getLastMove() {
+        return lastMove;
+    }
+
+    public void setLastMove(int lastMove) {
+        this.lastMove = lastMove;
     }
 
 }
