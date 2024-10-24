@@ -1,7 +1,7 @@
 package View;
 
-import model.Maze;
-//import InvalidExpressionException;
+// Change import to model.Maze;
+import model.*;
 
 import java.util.Scanner;
 

@@ -3,8 +3,10 @@ package model.MazeObjects;
 public class Mouse extends MazeObject {
     private int cheeseCollected;
 
-    public Mouse() {
-        super();
+    public Mouse(int row, int col) {
+        super(false);
+        this.row = row;
+        this.col = col;
         this.visible = true;
         cheeseCollected = 0;
     }
@@ -15,10 +17,5 @@ public class Mouse extends MazeObject {
 
     public void incCheeseCollected() {
         cheeseCollected++;
-    }
-
-    @Override
-    public String getThisObject() {
-        return "Mouse";
     }
 }

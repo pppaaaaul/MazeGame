@@ -2,13 +2,11 @@ package model.MazeObjects;
 
 
 public class Cheese extends MazeObject {
-    public Cheese() {
-        super();
-        this.visible = true;
-    }
 
-    @Override
-    public String getThisObject() {
-        return "Cheese";
+    public Cheese(int row, int col) {
+        super(true);
+        this.row = row;
+        this.col = col;
+        this.visible = true;
     }
 }

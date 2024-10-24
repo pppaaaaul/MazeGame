@@ -1,5 +1,11 @@
-import model.Maze;
-import View.UI;
+// Change imports to    View.InvalidExpressionException;
+//                      model.Maze;
+//                      View.UI;
+//                      model.MazeObjects.InvalidMoveException;
+
+import View.*;
+import model.*;
+import model.MazeObjects.*;
 
 
 public class Main {
@@ -24,7 +30,7 @@ public class Main {
             processValidUserInputLoop(maze);
         }
         if (UI.checkGameState(maze)) {
-            maze.moveCats();
+            maze.generateValidMovesForCats();
             gameLoop(maze);
         } else {
             System.out.println("Thanks for playing!");

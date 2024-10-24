@@ -1,22 +1,21 @@
 package model.MazeObjects;
 
-import model.MazeObjects.MazeObject;
-
 public class Cat extends MazeObject {
-    private String lastMove;
+    private int lastMove;
 
     public Cat(int row, int col) {
-        super(int row, int col);
+        super(true);
+        this.row = row;
+        this.col = col;
         this.visible = true;
-        lastMove = null;
+        lastMove = -1; // error code
     }
 
-    public String getLastMove() {
+    public int getLastMove() {
         return lastMove;
     }
 
-    @Override
-    public String getThisObject() {
-        return "Cat";
+    public void setLastMove(int lastMove) {
+        this.lastMove = lastMove;
     }
 }

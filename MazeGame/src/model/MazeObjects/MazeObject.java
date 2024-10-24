@@ -5,15 +5,11 @@ import java.util.Objects;
 public class MazeObject {
     protected int row;
     protected int col;
-    protected boolean visible;
+    protected boolean visible = false;
+    protected boolean passable = true;
 
-    protected MazeObject() {}
-    // What's this used for? Walls and Empty squares?
-
-    protected MazeObject(int row, int col) {
-        this.row = row;
-        this.col = col;
-        this.visible = false;
+    public MazeObject(boolean passable) {
+        this.passable = passable;
     }
 
     public void setRow(int row) {
@@ -33,10 +29,15 @@ public class MazeObject {
     }
 
     public int getRow() {
-        return this.row;
+        return row;
     }
+
     public int getCol() {
-        return this.col;
+        return col;
+    }
+
+    public boolean isPassable() {
+        return passable;
     }
 
     @Override
@@ -44,7 +45,4 @@ public class MazeObject {
         return Objects.hash(this.row,this.col);
     }
 
-    public String getThisObject() {
-        return null;
-    }
 }
