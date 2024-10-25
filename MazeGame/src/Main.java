@@ -12,39 +12,39 @@ public class Main {
     public static void main(String[] args) {
         
         Maze maze = new Maze();
-
-        UI.displayGreeting();
-        gameLoop(maze);
+        UI ui = new UI();
+        ui.displayGreeting();
+        gameLoop(maze, ui);
 
     }
 
-    public static void gameLoop(Maze maze) {
-        UI.displayOptions();
-        UI.displayMaze(maze);
-        char input = UI.getUserInput();
+    public static void gameLoop(Maze maze, UI ui) {
+        ui.displayOptions();
+        ui.displayMaze(maze);
+        char input = ui.getUserInput();
         try {
-            if (UI.processUserInput(input, maze)) {
-                gameLoop(maze);
+            if (ui.processUserInput(input, maze)) {
+                gameLoop(maze, ui);
             }
         } catch (InvalidExpressionException | InvalidMoveException e) {
             System.out.println("Invalid move: " + e);
-            processValidUserInputLoop(maze);
+            processValidUserInputLoop(maze, ui);
         }
-        if (UI.checkGameState(maze)) {
+        if (ui.checkGameState(maze)) {
             maze.generateValidMovesForCats();
-            gameLoop(maze);
+            gameLoop(maze, ui);
         } else {
             System.out.println("Thanks for playing!");
         }
     }
 
-    public static void processValidUserInputLoop(Maze maze) {
-        char input = UI.getUserInput();
+    public static void processValidUserInputLoop(Maze maze, UI ui) {
+        char input = ui.getUserInput();
         try {
-            UI.processUserInput(input, maze);
+            ui.processUserInput(input, maze);
         } catch (InvalidExpressionException | InvalidMoveException e) {
             System.out.println("Error: " + e);
-            processValidUserInputLoop(maze);
+            processValidUserInputLoop(maze, ui);
         }
     }
 }

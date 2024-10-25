@@ -8,13 +8,13 @@ import java.util.Iterator;
 
 // implements Iterable<MazeObject>
 public class Maze implements Iterable<Cat> {
-    final static int NUM_OF_COLUMNS = 15; // TODO: Set to 15
-    final static int NUM_OF_ROWS = 20; // TODO: Set to 20
+    final static int NUM_OF_COLUMNS = 15;
+    final static int NUM_OF_ROWS = 20;
     final static int CATS_SIZE = 3;
-    static private MazeObject[][] maze;
-    private static Cat[] cats;
-    public static Cheese cheese;
-    static private Mouse mouse;
+    private MazeObject[][] maze;
+    private final Cat[] cats;
+    public final Cheese cheese;
+    final private Mouse mouse;
     private int cheeseNeededToWin;
     public static char gameState; // Keep as Upper case
     // 'C' = continue, 'W' = win, 'L' = loss
@@ -68,10 +68,10 @@ public class Maze implements Iterable<Cat> {
 
             int randomVal = (int) (Math.random() * possibleDirections.size());
             switch (randomVal) {
-                case 0 -> moveCat(cat, cat.getRow() - 1, cat.getCol());
-                case 1 -> moveCat(cat, cat.getRow(), cat.getCol() + 1);
-                case 2 -> moveCat(cat, cat.getRow() + 1, cat.getCol());
-                case 3 -> moveCat(cat, cat.getRow(), cat.getCol() - 1);
+                case 0 -> moveCat(cat, cat.getRow() - 1, cat.getCol(), up);
+                case 1 -> moveCat(cat, cat.getRow(), cat.getCol() + 1, right);
+                case 2 -> moveCat(cat, cat.getRow() + 1, cat.getCol(), down);
+                case 3 -> moveCat(cat, cat.getRow(), cat.getCol() - 1, left);
             }
         }
     }
@@ -109,9 +109,9 @@ public class Maze implements Iterable<Cat> {
         return possibleDirections;
     }
 
-    private void moveCat(Cat cat, int row, int col) {
+    private void moveCat(Cat cat, int row, int col, int lastMove) {
         // Replace old cat
-        maze[cat.getRow()][cat.getCol] = new MazeObject(true);
+        maze[cat.getRow()][cat.getCol()] = new MazeObject(true);
 
         // Create new cat
         maze[row][col] = cat;
@@ -119,6 +119,8 @@ public class Maze implements Iterable<Cat> {
         // Update information inside cat
         cat.setRow(row);
         cat.setCol(col);
+        cat.setLastMove(lastMove);
+
     }
 
     private void placeCheese() {
@@ -253,7 +255,7 @@ public class Maze implements Iterable<Cat> {
         return NUM_OF_ROWS;
     }
 
-    public static char getMazeObjectRepresentation(int row, int col) {
+    public char getMazeObjectRepresentation(int row, int col) {
         MazeObject mazeObject = maze[row][col];
         // TODO: Double check this after merge
         if (!mazeObject.isVisible()) {

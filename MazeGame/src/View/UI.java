@@ -1,19 +1,20 @@
 package View;
 
 // Change import to model.Maze;
-import model.*;
+import Model.*;
 
 import java.util.Scanner;
 
 public class UI {
-    static public void displayGreeting() {
+    public UI() { }
+    public void displayGreeting() {
         System.out.println("----------------------------------------\n" +
                 "Welcome to Cat and Mouse Maze Adventure!\n" +
                 "by Paul Huang & Brandon Chattha\n" +
                 "----------------------------------------");
     }
 
-    static public void displayOptions() {
+    public void displayOptions() {
         System.out.println("DIRECTIONS:\n" +
                 "\tFind 5 cheese before a cat eats you!\n" +
                 "LEGEND:\n" +
@@ -27,7 +28,7 @@ public class UI {
                 "\t(You must press enter after each move).");
     }
 
-    static public void displayMaze(Maze maze) {
+    public void displayMaze(Maze maze) {
         // Iterate over the MazeObjects
 //        for (MazeObject m : maze) {
 //            if (m.getThisObject().equals())
@@ -37,7 +38,7 @@ public class UI {
         for (int row = 0; row < maze.getRowSize(); row++) {
             StringBuilder screenOutput = new StringBuilder("#");
             for (int col = 0; col < maze.getColumnSize(); col++) {
-                screenOutput.append(Maze.getMazeObjectRepresentation(row, col));
+                screenOutput.append(maze.getMazeObjectRepresentation(row, col));
             }
             screenOutput.append("#\n");
             // TODO: Maybe add .toString() after screenOutput?
@@ -47,14 +48,14 @@ public class UI {
         System.out.println("Cheese collected: " + maze.getCheeseCollected() + " out of " + maze.getCheeseNeededToWin());
     }
 
-    static public char getUserInput() {
+    public char getUserInput() {
         Scanner scanner = new Scanner(System.in);
         char result = scanner.next().charAt(0);
         scanner.nextLine();
         return result;
     }
 
-    static public boolean processUserInput(char input, Maze maze) {
+    public boolean processUserInput(char input, Maze maze) {
         input = Character.toUpperCase(input);
         switch (input) {
             case 'W', 'A', 'S', 'D' -> maze.moveMouse(input);
@@ -78,7 +79,7 @@ public class UI {
     }
 
 
-    public static boolean checkGameState(Maze maze) {
+    public boolean checkGameState(Maze maze) {
         switch (maze.getGameState()) {
             case 'W' -> {
                 return displayWin(maze);
@@ -93,7 +94,7 @@ public class UI {
         return false;
     }
 
-    public static boolean displayWin(Maze maze) {
+    public boolean displayWin(Maze maze) {
         System.out.println("YOU WIN!\n");
         maze.revealMaze();
         displayMaze(maze);
@@ -101,7 +102,7 @@ public class UI {
         return displayPlayAgain();
     }
 
-    public static boolean displayLoss(Maze maze) {
+    public boolean displayLoss(Maze maze) {
         System.out.println("You lose, better luck next time!\n");
         maze.revealMaze();
         displayMaze(maze);
@@ -109,7 +110,7 @@ public class UI {
         return displayPlayAgain();
     }
 
-    public static boolean displayPlayAgain() {
+    public boolean displayPlayAgain() {
         System.out.println("Play again (Y/N)?");
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine().equals("Y") || scanner.nextLine().equals("y");

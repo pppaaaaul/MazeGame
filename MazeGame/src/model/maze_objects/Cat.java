@@ -16,7 +16,4 @@ public class Cat extends MazeObject {
         this.lastMove = lastMove;
     }
 
-    public int getCol() {
-        return super.getCol();
-    }
 }
