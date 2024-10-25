@@ -53,8 +53,8 @@ public final class MazeBuilder {
      * Safely meaning will not result in 2x2 open square.
      */
     private void randomlyRemoveWalls() {
-        // The number of randomly walls removed is 10% of the total number of blocks, not including the outer wall
-        int numOfWallsToRemove = (int)((this.columns - 2) * (this.rows - 2) * 0.1);
+        // The number of randomly walls removed is 12% of the total number of blocks, not including the outer wall
+        int numOfWallsToRemove = (int)((this.columns - 2) * (this.rows - 2) * 0.12);
 
         // add all walls to list
         List<MazeObject> walls = new ArrayList<MazeObject>((this.columns - 2) * (this.rows - 2));

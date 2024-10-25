@@ -144,7 +144,6 @@ public class Maze implements Iterable<Cat> {
         int lastMove = (lastPlace + 2) % 4;
         cat.setLastPosition(lastMove);
         updateVisibilityAroundMouse();
-
     }
 
     private void placeCheese() {
