@@ -17,8 +17,8 @@ public final class MazeBuilder {
     // TODO: Paul, why are these necessary? Can't you call function in Maze to get these?
     private final int rows;
     private final int columns;
-    private MazeObject mouse;
-    private MazeObject[] cats;
+//    private MazeObject mouse;
+//    private MazeObject[] cats;
     private MazeObject[][] maze;
 
     private final int MIN_ROWS = 4;
@@ -38,15 +38,14 @@ public final class MazeBuilder {
         this.rows = rows;
         this.columns = columns;
 
-        this.mouse = new MazeObject(1,1,true);
-
-        this.cats = new MazeObject[]{
-            new MazeObject(this.columns - 2,1, true),
-            new MazeObject(1,this.rows - 2, true),
-            new MazeObject(this.columns - 2,this.rows - 2, true)
-        };
-
         generateMaze();
+
+//        this.mouse = new MazeObject(1,1,true);
+//        this.cats = new MazeObject[]{
+//            new MazeObject(this.columns - 2,1, true),
+//            new MazeObject(1,this.rows - 2, true),
+//            new MazeObject(this.columns - 2,this.rows - 2, true)
+//        };
     }
 
     public MazeObject[][] getMaze() {
@@ -98,8 +97,8 @@ public final class MazeBuilder {
      * Checks if there are parallel walls around the given wall.
      */
     private boolean isRemovable(MazeObject wall) {
-        int currX = wall.getX();
-        int currY = wall.getY();
+        int currX = wall.getRow();    
+        int currY = wall.getCol();
 
         // check for parallel walls left and right
         if(!this.maze[currY][currX + 1].isPassable() && !this.maze[currY][currX - 1].isPassable()) {
@@ -125,14 +124,18 @@ public final class MazeBuilder {
                 this.maze[i][j] = new MazeObject(j, i, false);
             }
        }
+        this.maze[1][1].setPassable(true);
+        this.maze[1][this.columns - 2].setPassable(true);
+        this.maze[this.rows - 2][this.columns - 2].setPassable(true);
+        this.maze[this.rows - 2][1].setPassable(true);
 
-        // Spawn location of mouse
-        this.maze[1][1] = this.mouse;
-
-        // Spawn locations of cats
-        this.maze[this.cats[0].getY()][this.cats[0].getX()] = this.cats[0];
-        this.maze[this.cats[1].getY()][this.cats[1].getX()] = this.cats[1];
-        this.maze[this.cats[2].getY()][this.cats[2].getX()] = this.cats[2];
+//        // Spawn location of mouse
+//        this.maze[1][1] = this.mouse;
+//
+//        // Spawn locations of cats
+//        this.maze[this.cats[0].getCol()][this.cats[0].getRow()] = this.cats[0];
+//        this.maze[this.cats[1].getCol()][this.cats[1].getRow()] = this.cats[1];
+//        this.maze[this.cats[2].getCol()][this.cats[2].getRow()] = this.cats[2];
     }
 
     /**
@@ -151,8 +154,8 @@ public final class MazeBuilder {
         Stack<MazeObject> stack = new Stack<>();
 
         // (1,1) is starting location of player
-        stack.push(this.mouse);
-        visited.add(this.mouse);
+        stack.push(this.maze[1][1]);
+        visited.add(this.maze[1][1]);
 
         while(!stack.empty()) {
 
@@ -176,8 +179,8 @@ public final class MazeBuilder {
 
     private MazeObject getRandomNonVisitedAdjacentPoint(MazeObject currentPoint, HashSet<MazeObject> visited) {
         final int distance = 2;
-        final int currX = currentPoint.getX();
-        final int currY = currentPoint.getY();
+        final int currX = currentPoint.getRow();
+        final int currY = currentPoint.getCol();
         final int maxNumOfAdjacentPaths = 4;
 
         ArrayList<MazeObject> nonVisitedAdjacentPoints = new ArrayList<>(maxNumOfAdjacentPaths);
@@ -224,17 +227,17 @@ public final class MazeBuilder {
      * Removes the wall between two points in maze.
      */
     private void removeWallBetweenPoints(MazeObject pointA, MazeObject pointB) {
-        if(pointA.getX() + 2 == pointB.getX()) {
-            this.maze[pointA.getY()][pointA.getX() + 1].setPassable(true);
+        if(pointA.getRow() + 2 == pointB.getRow()) {
+            this.maze[pointA.getCol()][pointA.getRow() + 1].setPassable(true);
 
-        } else if(pointA.getX() - 2 == pointB.getX()) {
-            this.maze[pointA.getY()][pointA.getX() - 1].setPassable(true);
+        } else if(pointA.getRow() - 2 == pointB.getRow()) {
+            this.maze[pointA.getCol()][pointA.getRow() - 1].setPassable(true);
 
-        } else if(pointA.getY() + 2 == pointB.getY()) {
-            this.maze[pointA.getY() + 1][pointA.getX()].setPassable(true);
+        } else if(pointA.getCol() + 2 == pointB.getCol()) {
+            this.maze[pointA.getCol() + 1][pointA.getRow()].setPassable(true);
 
         } else {
-            this.maze[pointA.getY() - 1][pointA.getX()].setPassable(true);
+            this.maze[pointA.getCol() - 1][pointA.getRow()].setPassable(true);
         }
     }
 }

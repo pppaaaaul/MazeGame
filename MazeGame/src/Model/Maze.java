@@ -8,8 +8,8 @@ import java.util.Iterator;
 
 // implements Iterable<MazeObject>
 public class Maze implements Iterable<Cat> {
-    final static int NUM_OF_COLUMNS = 15;
-    final static int NUM_OF_ROWS = 20;
+    final static int NUM_OF_COLUMNS = 20;
+    final static int NUM_OF_ROWS = 15;
     final static int CATS_SIZE = 3;
     private MazeObject[][] maze;
     private final Cat[] cats;
@@ -24,16 +24,18 @@ public class Maze implements Iterable<Cat> {
     public Maze () {
         maze = new MazeObject[NUM_OF_ROWS][NUM_OF_COLUMNS];
         cats = new Cat[CATS_SIZE];
-        initializeCats();
+
         int[] cheeseCoordinates;
         cheeseCoordinates = randomlyGenCoordinates();
-        cheese = new Cheese(cheeseCoordinates[0], cheeseCoordinates[1]);
-        mouse = new Mouse(1, 1);
+
         cheeseNeededToWin = 5;
         gameState = 'C';
-        maze[1][1] = mouse;
         maze = new MazeBuilder(NUM_OF_ROWS, NUM_OF_COLUMNS).getMaze();
-//        putObjectsInMaze();
+        initializeCats();
+        cheese = new Cheese(cheeseCoordinates[0], cheeseCoordinates[1]);
+        mouse = new Mouse(1, 1);
+        maze[1][1] = mouse;
+        //        putObjectsInMaze();
     }
 
     private void initializeCats() {
@@ -146,7 +148,7 @@ public class Maze implements Iterable<Cat> {
             randomRowVal = (int) (Math.random() * NUM_OF_ROWS);
             randomColVal = (int) (Math.random() * NUM_OF_COLUMNS);
             MazeObject desiredSpaceOccupier = maze[randomRowVal][randomColVal];
-            if (desiredSpaceOccupier.isPassable() && (desiredSpaceOccupier != cheese)) {
+            if (desiredSpaceOccupier != null && desiredSpaceOccupier.isPassable() && (desiredSpaceOccupier != cheese)) {
                 validCoordinateFound = true;
             }
         }

@@ -16,6 +16,14 @@ public class Main {
         ui.displayGreeting();
         gameLoop(maze, ui);
 
+//        MazeObject[][] maze = new MazeBuilder(15,20).getMaze();
+//        for(int i = 0; i < maze.length; i++) {
+//            for(int j = 0; j < maze[i].length; j++) {
+//                String c = maze[i][j].isPassable() ? " " : "#";
+//                System.out.print(c);
+//            }
+//            System.out.println();
+//        }
     }
 
     public static void gameLoop(Maze maze, UI ui) {
