@@ -15,6 +15,11 @@ public class MazeObject {
         this.passable = passable;
     }
 
+    public MazeObject(boolean passable, boolean visible) {
+        this.passable = passable;
+        this.visible = visible;
+    }
+
     public MazeObject(int col, int row, boolean passable) {
         this.col = col;
         this.row = row;
@@ -78,5 +83,10 @@ public class MazeObject {
 
     public void setPassable(boolean passable) {
         this.passable = passable;
+    }
+
+    // TODO: Remove the following method | Used for debugging
+    public void setVisibleFalse() {
+        this.visible = false;
     }
 }

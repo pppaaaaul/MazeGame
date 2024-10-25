@@ -1,19 +1,27 @@
 package Model.Maze_Objects;
 
 public class Cat extends MazeObject {
-    private int lastMove;
+    private int lastPosition;
+    private boolean occupiedSpaceVisible = false;
 
     public Cat(int col, int row) {
         super(col, row, true, true);
-        lastMove = -1; // no move made yet
+        lastPosition = -1; // no move made yet
     }
 
-    public int getLastMove() {
-        return lastMove;
+    public int getLastPosition() {
+        return lastPosition;
     }
 
-    public void setLastMove(int lastMove) {
-        this.lastMove = lastMove;
+    public void setLastPosition(int lastPosition) {
+        this.lastPosition = lastPosition;
+    }
+
+    public boolean isOccupiedSpaceVisible() {
+        return occupiedSpaceVisible;
+    }
+    public void setOccupiedSpaceVisible(boolean occupiedSpaceVisible) {
+        this.occupiedSpaceVisible = occupiedSpaceVisible;
     }
 
 }

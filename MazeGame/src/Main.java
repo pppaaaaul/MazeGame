@@ -11,25 +11,10 @@ public class Main {
 
     public static void main(String[] args) {
         
-//        Maze maze = new Maze();
+        Maze maze = new Maze();
         UI ui = new UI();
         ui.displayGreeting();
-//        gameLoop(maze, ui);
-//        ui.displayMaze(maze);
-
-
-
-
-        int x = 20;
-        int y = 15;
-        MazeObject[][] maze = new MazeBuilder(x,y).getMaze();
-        for(int i = 0; i < x; i++) {
-            for(int j = 0; j < y; j++) {
-                String c = maze[i][j].isPassable() ? " " : "#";
-                System.out.print(c);
-            }
-            System.out.println();
-        }
+        gameLoop(maze, ui);
     }
 
     public static void gameLoop(Maze maze, UI ui) {
@@ -44,12 +29,12 @@ public class Main {
             System.out.println("Invalid move: " + e);
             processValidUserInputLoop(maze, ui);
         }
-        if (ui.checkGameState(maze)) {
-            maze.generateValidMovesForCats();
-            gameLoop(maze, ui);
-        } else {
-            System.out.println("Thanks for playing!");
+        ui.checkGameState(maze);
+        if (maze.getGameState() != 'C') {
+           return;
         }
+        maze.generateValidMovesForCats();
+        gameLoop(maze, ui);
     }
 
     public static void processValidUserInputLoop(Maze maze, UI ui) {

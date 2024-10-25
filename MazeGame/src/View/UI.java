@@ -29,12 +29,11 @@ public class UI {
     }
 
     public void displayMaze(Maze maze) {
-        for (int row = 0; row < maze.getRowSize(); row++) {
-            StringBuilder screenOutput = new StringBuilder("#");
-            for (int col = 0; col < maze.getColumnSize(); col++) {
-                screenOutput.append(maze.getMazeObjectRepresentation(row, col));
+        for (int col = 0; col < maze.getColumnSize(); col++) {
+            StringBuilder screenOutput = new StringBuilder();
+            for (int row = 0; row < maze.getRowSize(); row++) {
+                screenOutput.append(maze.getMazeObjectRepresentation(col, row));
             }
-            screenOutput.append("#");
             System.out.println(screenOutput);
         }
         System.out.println("Cheese collected: " + maze.getCheeseCollected() + " out of " + maze.getCheeseNeededToWin());
@@ -63,7 +62,6 @@ public class UI {
                 displayOptions();
                 return true;
             }
-            // TODO: Use provided Exceptions
             default -> throw new InvalidExpressionException(
                     "Please enter just A (left), S (down), D (right), or W (up).");
         }
@@ -71,41 +69,22 @@ public class UI {
     }
 
 
-    public boolean checkGameState(Maze maze) {
+    public void checkGameState(Maze maze) {
         switch (maze.getGameState()) {
-            case 'W' -> {
-                return displayWin(maze);
-            }
-            case 'L' -> {
-                return displayLoss(maze);
-            }
-            case 'C' -> {
-                return true;
-            }
+            case 'W' -> displayWin(maze);
+            case 'L' -> displayLoss(maze);
         }
-        return false;
     }
 
-    public boolean displayWin(Maze maze) {
+    public void displayWin(Maze maze) {
         System.out.println("YOU WIN!\n");
         maze.revealMaze();
         displayMaze(maze);
-
-        return displayPlayAgain();
     }
 
-    public boolean displayLoss(Maze maze) {
+    public void displayLoss(Maze maze) {
         System.out.println("You lose, better luck next time!\n");
         maze.revealMaze();
         displayMaze(maze);
-
-        return displayPlayAgain();
     }
-
-    public boolean displayPlayAgain() {
-        System.out.println("Play again (Y/N)?");
-        Scanner scanner = new Scanner(System.in);
-        return scanner.nextLine().equals("Y") || scanner.nextLine().equals("y");
-    }
-
 }
