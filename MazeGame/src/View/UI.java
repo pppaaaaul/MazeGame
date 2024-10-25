@@ -29,22 +29,14 @@ public class UI {
     }
 
     public void displayMaze(Maze maze) {
-        // Iterate over the MazeObjects
-//        for (MazeObject m : maze) {
-//            if (m.getThisObject().equals())
-//        }
-
-        System.out.println("###############");
         for (int row = 0; row < maze.getRowSize(); row++) {
             StringBuilder screenOutput = new StringBuilder("#");
             for (int col = 0; col < maze.getColumnSize(); col++) {
                 screenOutput.append(maze.getMazeObjectRepresentation(row, col));
             }
-            screenOutput.append("#\n");
-            // TODO: Maybe add .toString() after screenOutput?
+            screenOutput.append("#");
             System.out.println(screenOutput);
         }
-        System.out.println("###############");
         System.out.println("Cheese collected: " + maze.getCheeseCollected() + " out of " + maze.getCheeseNeededToWin());
     }
 

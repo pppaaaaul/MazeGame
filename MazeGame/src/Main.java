@@ -14,7 +14,12 @@ public class Main {
         Maze maze = new Maze();
         UI ui = new UI();
         ui.displayGreeting();
-        gameLoop(maze, ui);
+//        gameLoop(maze, ui);
+        ui.displayMaze(maze);
+
+
+
+
 
 //        MazeObject[][] maze = new MazeBuilder(15,20).getMaze();
 //        for(int i = 0; i < maze.length; i++) {

@@ -22,20 +22,21 @@ public class Maze implements Iterable<Cat> {
 
 
     public Maze () {
-        maze = new MazeObject[NUM_OF_ROWS][NUM_OF_COLUMNS];
         cats = new Cat[CATS_SIZE];
+        cheeseNeededToWin = 5;
+        // Set state of game to continuous
+        gameState = 'C';
 
+        // Create board and fill in with walls
+        maze = new MazeBuilder(NUM_OF_ROWS, NUM_OF_COLUMNS).getMaze();
+
+        // Add cheese, cats, and mouse to board
         int[] cheeseCoordinates;
         cheeseCoordinates = randomlyGenCoordinates();
-
-        cheeseNeededToWin = 5;
-        gameState = 'C';
-        maze = new MazeBuilder(NUM_OF_ROWS, NUM_OF_COLUMNS).getMaze();
-        initializeCats();
         cheese = new Cheese(cheeseCoordinates[0], cheeseCoordinates[1]);
+        initializeCats();
         mouse = new Mouse(1, 1);
         maze[1][1] = mouse;
-        //        putObjectsInMaze();
     }
 
     private void initializeCats() {
