@@ -3,7 +3,9 @@ package View;
 // Change import to model.Maze;
 import Model.*;
 
+import java.util.Arrays;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class UI {
     public UI() { }
@@ -29,13 +31,15 @@ public class UI {
     }
 
     public void displayMaze(Maze maze) {
-        for (int col = 0; col < maze.getColumnSize(); col++) {
-            StringBuilder screenOutput = new StringBuilder();
-            for (int row = 0; row < maze.getRowSize(); row++) {
-                screenOutput.append(maze.getMazeObjectRepresentation(col, row));
-            }
-            System.out.println(screenOutput);
-        }
+        // ChatGPT helped with converting the 2D array to one that is usable in a stream (lines 35 & 36)
+        String mazeRepresentation = Arrays.stream(maze.getMaze())
+                .map(row -> Arrays.stream(row)
+                        .map(maze::mazeObjectRepresentation)
+                        .map(String::valueOf)
+                        .collect(Collectors.joining("")))
+                .collect(Collectors.joining("\n"));
+        System.out.println(mazeRepresentation);
+
         System.out.println("Cheese collected: " + maze.getCheeseCollected() + " out of " + maze.getCheeseNeededToWin());
     }
 

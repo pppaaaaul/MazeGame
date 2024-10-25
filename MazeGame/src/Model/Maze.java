@@ -3,8 +3,10 @@ package Model;
 import Model.Maze_Objects.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Iterator;
+import java.util.stream.IntStream;
 
 // implements Iterable<MazeObject>
 public class Maze implements Iterable<Cat> {
@@ -18,15 +20,6 @@ public class Maze implements Iterable<Cat> {
     private int cheeseNeededToWin;
     public char gameState; // Keep as Upper case
     // 'C' = continue, 'W' = win, 'L' = loss
-
-    // TODO: Remove the next line | Used for Debugging
-    public MazeObject[][] getMaze() {
-        return maze;
-    }
-    // TODO: Remove the next line | Used for Debugging
-    public Cat[] getCats() {
-        return cats;
-    }
 
     public Maze () {
         cats = new Cat[CATS_SIZE];
@@ -47,14 +40,13 @@ public class Maze implements Iterable<Cat> {
         updateVisibilityAroundMouse();
 
         // set the edges to visible
-        for (int i = 0; i < NUM_OF_COLUMNS; i++) {
+        Arrays.stream(maze[0]).forEach(MazeObject::setVisible);
+        Arrays.stream(maze[NUM_OF_COLUMNS - 1]).forEach(MazeObject::setVisible);
+        // ChatGPT helped with the start of the following line (IntStream.range(1, NUM_OF_COLUMNS - 1))
+        IntStream.range(1, NUM_OF_COLUMNS - 1).forEach(i -> {
             maze[i][0].setVisible();
             maze[i][NUM_OF_ROWS - 1].setVisible();
-        }
-        for (int i = 0; i < NUM_OF_ROWS; i++) {
-            maze[0][i].setVisible();
-            maze[NUM_OF_COLUMNS - 1][i].setVisible();
-        }
+        });
     }
 
     private void initializeCats() {
@@ -91,8 +83,6 @@ public class Maze implements Iterable<Cat> {
             generateValidDirections(cat, possibleDirections, up, right, down, left);
 
             int randomVal = (int) (Math.random() * possibleDirections.size());
-            // TODO: Remove the next line | Used for debugging
-//            this.revealMaze();
             switch (possibleDirections.get(randomVal)) {
                 case 0 -> moveCat(cat, cat.getCol() - 1, cat.getRow(), up);
                 case 1 -> moveCat(cat, cat.getCol(), cat.getRow() + 1, right);
@@ -106,7 +96,6 @@ public class Maze implements Iterable<Cat> {
                                                   final Integer right, final Integer down, final Integer left) {
         int col = cat.getCol();
         int row = cat.getRow();
-        // TODO: Double check this after merge | Switch col and row around
         if (col - 1 <= 0 || !maze[col - 1][row].isPassable()) {
             possibleDirections.remove(up);
         }
@@ -146,11 +135,7 @@ public class Maze implements Iterable<Cat> {
 
 
         // Create new cat
-        if (maze[col][row].isVisible()) {
-            cat.setOccupiedSpaceVisible(true);
-        } else {
-            cat.setOccupiedSpaceVisible(false);
-        }
+        cat.setOccupiedSpaceVisible(maze[col][row].isVisible());
         maze[col][row] = cat;
 
         // Update information inside cat
@@ -233,14 +218,12 @@ public class Maze implements Iterable<Cat> {
         maze[mouseCol + 1][mouseRow - 1].setVisible(); // Bot right
     }
 
-    // TODO: Mouse runs into walls when there isn't one
     private void validMouseMove(int col, int row) {
         if (col == NUM_OF_COLUMNS || col == 0 || row == NUM_OF_ROWS || row == 0) {
             throw new InvalidMoveException("You cannot move through walls!\n");
         }
 
         MazeObject spaceOccupier = maze[col][row];
-        // TODO: Double check this after merge
         if (spaceOccupier == cheese) {
             mouse.incCheeseCollected();
             if (mouse.getCheeseCollected() < cheeseNeededToWin) {
@@ -288,12 +271,8 @@ public class Maze implements Iterable<Cat> {
         return mouse.getCheeseCollected();
     }
 
-    public int getColumnSize() {
-        return NUM_OF_COLUMNS;
-    }
-
-    public int getRowSize() {
-        return NUM_OF_ROWS;
+    public MazeObject[][] getMaze() {
+        return maze;
     }
 
     public char getMazeObjectRepresentation(int col, int row) {
@@ -301,10 +280,13 @@ public class Maze implements Iterable<Cat> {
         if (mazeObject == cheese) {
             mazeObject.setVisible();
         }
-        // TODO: Double check this after merge
         if (col == 0 || col == NUM_OF_COLUMNS - 1 || row == NUM_OF_ROWS - 1 || row == 0) {
             return '#';
         }
+        return mazeObjectRepresentation(mazeObject);
+    }
+
+    public char mazeObjectRepresentation(MazeObject mazeObject) {
         if (!mazeObject.isVisible()) {
             return '.';
         }
