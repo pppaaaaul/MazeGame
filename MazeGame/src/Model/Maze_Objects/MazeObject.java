@@ -3,8 +3,8 @@ package Model.Maze_Objects;
 import java.util.Objects;
 
 public class MazeObject {
-    protected int row;
     protected int col;
+    protected int row;
     protected boolean passable = true;
     protected boolean visible = false;
 
@@ -15,31 +15,31 @@ public class MazeObject {
         this.passable = passable;
     }
 
-    public MazeObject(int row, int col, boolean passable) {
-        this.row = row;
+    public MazeObject(int col, int row, boolean passable) {
         this.col = col;
+        this.row = row;
         this.passable = passable;
     }
 
-    public MazeObject(int row, int col, boolean passable, boolean visible) {
-        this.row = row;
+    public MazeObject(int col, int row, boolean passable, boolean visible) {
         this.col = col;
+        this.row = row;
         this.passable = passable;
         this.visible = visible;
     }
 
-    public int getRow() {
-        return this.row;
-    }
     public int getCol() {
         return this.col;
     }
-
-    public void setRow(int row) {
-        this.row = row;
+    public int getRow() {
+        return this.row;
     }
+
     public void setCol(int col) {
         this.col = col;
+    }
+    public void setRow(int row) {
+        this.row = row;
     }
 
     public boolean isPassable() {
@@ -73,7 +73,7 @@ public class MazeObject {
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.row, this.col, this.passable);
+        return Objects.hash(this.col, this.row, this.passable);
     }
 
     public void setPassable(boolean passable) {

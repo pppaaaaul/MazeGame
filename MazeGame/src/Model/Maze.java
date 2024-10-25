@@ -41,16 +41,16 @@ public class Maze implements Iterable<Cat> {
 
     private void initializeCats() {
         final int IN_BOUNDS_VALUE = 2;
-        cats[0] = new Cat(1, NUM_OF_COLUMNS - IN_BOUNDS_VALUE);
-        cats[1] = new Cat(NUM_OF_ROWS - IN_BOUNDS_VALUE, 1);
-        cats[2] = new Cat(NUM_OF_ROWS - IN_BOUNDS_VALUE, NUM_OF_COLUMNS - IN_BOUNDS_VALUE);
+        cats[0] = new Cat(1, NUM_OF_ROWS - IN_BOUNDS_VALUE);
+        cats[1] = new Cat(NUM_OF_COLUMNS - IN_BOUNDS_VALUE, 1);
+        cats[2] = new Cat(NUM_OF_COLUMNS - IN_BOUNDS_VALUE, NUM_OF_ROWS - IN_BOUNDS_VALUE);
     }
 
     public void revealMaze() {
         // iterate through maze
-        for (int row = 0; row < NUM_OF_ROWS; row++) {
-            for (int col = 0; col < NUM_OF_COLUMNS; col++) {
-                maze[row][col].setVisible();
+        for (int col = 0; col < NUM_OF_COLUMNS; col++) {
+            for (int row = 0; row < NUM_OF_ROWS; row++) {
+                maze[col][row].setVisible();
             }
         }
     }
@@ -81,22 +81,22 @@ public class Maze implements Iterable<Cat> {
 
     private List<Integer> generateValidDirections(Cat cat, List<Integer> possibleDirections, final int up,
                                                   final int right, final int down, final int left) {
-        int row = cat.getRow();
         int col = cat.getCol();
+        int row = cat.getRow();
         // TODO: Double check this after merge
-        if (row - 1 < 0 || !maze[row - 1][col].isPassable()) {
+        if (col - 1 < 0 || !maze[col - 1][row].isPassable()) {
             possibleDirections.remove(up);
         }
         // TODO: Double check this after merge
-        if (col + 1 > NUM_OF_COLUMNS || !maze[row][col + 1].isPassable()) {
+        if (row + 1 > NUM_OF_ROWS || !maze[col][row + 1].isPassable()) {
             possibleDirections.remove(right);
         }
         // TODO: Double check this after merge
-        if (row + 1 > NUM_OF_ROWS || !maze[row + 1][col].isPassable()) {
+        if (col + 1 > NUM_OF_COLUMNS || !maze[col + 1][row].isPassable()) {
             possibleDirections.remove(down);
         }
         // TODO: Double check this after merge
-        if (col - 1 < 0 || !maze[row][col - 1].isPassable()) {
+        if (row - 1 < 0 || !maze[col][row - 1].isPassable()) {
             possibleDirections.remove(left);
         }
 
@@ -112,16 +112,16 @@ public class Maze implements Iterable<Cat> {
         return possibleDirections;
     }
 
-    private void moveCat(Cat cat, int row, int col, int lastMove) {
+    private void moveCat(Cat cat, int col, int row, int lastMove) {
         // Replace old cat
-        maze[cat.getRow()][cat.getCol()] = new MazeObject(true);
+        maze[cat.getCol()][cat.getRow()] = new MazeObject(true);
 
         // Create new cat
-        maze[row][col] = cat;
+        maze[col][row] = cat;
 
         // Update information inside cat
-        cat.setRow(row);
         cat.setCol(col);
+        cat.setRow(row);
         cat.setLastMove(lastMove);
 
     }
@@ -131,78 +131,78 @@ public class Maze implements Iterable<Cat> {
         cheeseCoordinates = randomlyGenCoordinates();
 
         // remove old cheese
-        maze[cheese.getRow()][cheese.getCol()] = new MazeObject(true);
+        maze[cheese.getCol()][cheese.getRow()] = new MazeObject(true);
 
         // add new cheese
         maze[cheeseCoordinates[0]][cheeseCoordinates[1]] = cheese;
 
         // Update information inside cheese
-        cheese.setRow(cheeseCoordinates[0]);
-        cheese.setCol(cheeseCoordinates[1]);
+        cheese.setCol(cheeseCoordinates[0]);
+        cheese.setRow(cheeseCoordinates[1]);
     }
 
     private int[] randomlyGenCoordinates() {
-        int randomRowVal = 0;
         int randomColVal = 0;
+        int randomRowVal = 0;
         boolean validCoordinateFound = false;
         while (!validCoordinateFound) {
-            randomRowVal = (int) (Math.random() * NUM_OF_ROWS);
             randomColVal = (int) (Math.random() * NUM_OF_COLUMNS);
-            MazeObject desiredSpaceOccupier = maze[randomRowVal][randomColVal];
+            randomRowVal = (int) (Math.random() * NUM_OF_ROWS);
+            MazeObject desiredSpaceOccupier = maze[randomColVal][randomRowVal];
             if (desiredSpaceOccupier != null && desiredSpaceOccupier.isPassable() && (desiredSpaceOccupier != cheese)) {
                 validCoordinateFound = true;
             }
         }
-        return new int[]{randomRowVal, randomColVal};
+        return new int[]{randomColVal, randomRowVal};
     }
 
     public void moveMouse(char key) {
-        int row = mouse.getRow();
         int col = mouse.getCol();
+        int row = mouse.getRow();
         switch (key) {
             case 'W' -> {
-                validMouseMove(row - 1, col);
+                validMouseMove(col - 1, row);
                 // TODO: Double check this after merge
-                maze[row][col] = new MazeObject(true);
+                maze[col][row] = new MazeObject(true);
             }
             case 'A' -> {
-                validMouseMove(row, col - 1);
+                validMouseMove(col, row - 1);
                 // TODO: Double check this after merge
-                maze[row][col] = new MazeObject(true);
+                maze[col][row] = new MazeObject(true);
             }
             case 'S' -> {
-                validMouseMove(row, col + 1);
+                validMouseMove(col, row + 1);
                 // TODO: Double check this after merge
-                maze[row][col] = new MazeObject(true);
+                maze[col][row] = new MazeObject(true);
             }
             case 'D' -> {
-                validMouseMove(row + 1, col);
+                validMouseMove(col + 1, row);
                 // TODO: Double check this after merge
-                maze[row][col] = new MazeObject(true);
+                maze[col][row] = new MazeObject(true);
             }
         }
         updateVisibilityAroundMouse();
     }
 
     private void updateVisibilityAroundMouse() {
-        int mouseRow = mouse.getRow();
         int mouseCol = mouse.getCol();
-        maze[mouseRow - 1][mouseCol + 1].setVisible(); // Top left
-        maze[mouseRow][mouseCol + 1].setVisible(); // Top mid
-        maze[mouseRow + 1][mouseCol + 1].setVisible(); // Top right
-        maze[mouseRow - 1][mouseCol].setVisible(); // Mid left
-        maze[mouseRow + 1][mouseCol].setVisible(); // Mid right
-        maze[mouseRow - 1][mouseCol - 1].setVisible(); // Bot left
-        maze[mouseRow][mouseCol - 1].setVisible(); // Bot mid
-        maze[mouseRow + 1][mouseCol - 1].setVisible(); // Bot right
+        int mouseRow = mouse.getRow();
+        maze[mouseCol - 1][mouseRow + 1].setVisible(); // Top left
+        maze[mouseCol][mouseRow + 1].setVisible(); // Top mid
+        maze[mouseCol + 1][mouseRow + 1].setVisible(); // Top right
+        maze[mouseCol - 1][mouseRow].setVisible(); // Mid left
+        maze[mouseCol + 1][mouseRow].setVisible(); // Mid right
+        maze[mouseCol - 1][mouseRow - 1].setVisible(); // Bot left
+        maze[mouseCol][mouseRow - 1].setVisible(); // Bot mid
+        maze[mouseCol + 1][mouseRow - 1].setVisible(); // Bot right
     }
 
-    private void validMouseMove(int row, int col) {
-        if (row >= NUM_OF_ROWS || row < 0 || col >= NUM_OF_COLUMNS || col < 0) {
+    private void validMouseMove(int col, int row) {
+        if (col >= NUM_OF_COLUMNS || col < 0 || row >= NUM_OF_ROWS || row < 0) {
             throw new InvalidMoveException("You cannot move through walls!\n");
         }
 
-        MazeObject spaceOccupier = maze[row][col];
+        MazeObject spaceOccupier = maze[col][row];
         // TODO: Double check this after merge
         if (!spaceOccupier.isPassable()) {
             throw new InvalidMoveException("You cannot move through walls!\n");
@@ -211,7 +211,7 @@ public class Maze implements Iterable<Cat> {
             mouse.incCheeseCollected();
             if (mouse.getCheeseCollected() < cheeseNeededToWin) {
                 placeCheese();
-                maze[row][col] = new MazeObject(true);
+                maze[col][row] = new MazeObject(true);
             } else {
                 gameState = 'W';
             }
@@ -224,13 +224,13 @@ public class Maze implements Iterable<Cat> {
                 }
             }
         }
-        updateMouseLocation(row, col);
+        updateMouseLocation(col, row);
     }
 
-    private void updateMouseLocation(int row, int col) {
-        maze[row][col] = mouse;
-        mouse.setRow(row);
+    private void updateMouseLocation(int col, int row) {
+        maze[col][row] = mouse;
         mouse.setCol(col);
+        mouse.setRow(row);
     }
 
     public void setCheeseNeededToOne() {
@@ -258,8 +258,8 @@ public class Maze implements Iterable<Cat> {
         return NUM_OF_ROWS;
     }
 
-    public char getMazeObjectRepresentation(int row, int col) {
-        MazeObject mazeObject = maze[row][col];
+    public char getMazeObjectRepresentation(int col, int row) {
+        MazeObject mazeObject = maze[col][row];
         // TODO: Double check this after merge
         if (!mazeObject.isVisible()) {
             return '.';

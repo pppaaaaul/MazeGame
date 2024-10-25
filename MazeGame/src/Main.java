@@ -11,24 +11,24 @@ public class Main {
 
     public static void main(String[] args) {
         
-        Maze maze = new Maze();
+//        Maze maze = new Maze();
         UI ui = new UI();
         ui.displayGreeting();
 //        gameLoop(maze, ui);
-        ui.displayMaze(maze);
+//        ui.displayMaze(maze);
 
 
 
 
 
-//        MazeObject[][] maze = new MazeBuilder(15,20).getMaze();
-//        for(int i = 0; i < maze.length; i++) {
-//            for(int j = 0; j < maze[i].length; j++) {
-//                String c = maze[i][j].isPassable() ? " " : "#";
-//                System.out.print(c);
-//            }
-//            System.out.println();
-//        }
+        MazeObject[][] maze = new MazeBuilder(15,20).getMaze();
+        for(int i = 0; i < maze.length; i++) {
+            for(int j = 0; j < maze[i].length; j++) {
+                String c = maze[i][j].isPassable() ? " " : "#";
+                System.out.print(c);
+            }
+            System.out.println();
+        }
     }
 
     public static void gameLoop(Maze maze, UI ui) {

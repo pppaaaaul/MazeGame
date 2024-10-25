@@ -26,17 +26,17 @@ public final class MazeBuilder {
 
     private MazeBuilder() {
         // Java FORCES the following two lines.
-        this.rows = 0;
         this.columns = 0;
+        this.rows = 0;
     }
 
-    public MazeBuilder(int rows, int columns) {
-        if(rows < MIN_ROWS || columns < MIN_COLUMNS) {
+    public MazeBuilder(int columns, int rows) {
+        if(columns < MIN_COLUMNS || rows < MIN_ROWS) {
             throw new IllegalArgumentException("MazeBuilder was intended to create at least a " + MIN_ROWS + "x" + MIN_COLUMNS + " maze.");
         }
 
-        this.rows = rows;
         this.columns = columns;
+        this.rows = rows;
 
         generateMaze();
 
@@ -64,12 +64,12 @@ public final class MazeBuilder {
      */
     private void randomlyRemoveWalls() {
         // The number of randomly walls removed is 10% of the total number of blocks, not including the outer wall
-        int numOfWallsToRemove = (int)((this.rows - 2) * (this.columns - 2) * 0.1);
+        int numOfWallsToRemove = (int)((this.columns - 2) * (this.rows - 2) * 0.1);
 
         // add all walls to list
         List<MazeObject> walls = new ArrayList<MazeObject>((this.columns - 2) * (this.rows - 2));
-        for(int i = 1; i < this.rows - 1; i++) {
-            for(int j = 1; j < this.columns - 1; j++) {
+        for(int i = 1; i < this.columns - 1; i++) {
+            for(int j = 1; j < this.rows - 1; j++) {
                 if(!this.maze[i][j].isPassable()) {
                     walls.add(this.maze[i][j]);
                 }
@@ -97,8 +97,8 @@ public final class MazeBuilder {
      * Checks if there are parallel walls around the given wall.
      */
     private boolean isRemovable(MazeObject wall) {
-        int currX = wall.getRow();    
-        int currY = wall.getCol();
+        int currX = wall.getCol();
+        int currY = wall.getRow();
 
         // check for parallel walls left and right
         if(!this.maze[currY][currX + 1].isPassable() && !this.maze[currY][currX - 1].isPassable()) {
@@ -117,17 +117,17 @@ public final class MazeBuilder {
      * Creates a maze full of walls.
      */
     private void initializeMaze() {
-        this.maze = new MazeObject[this.rows][this.columns];
+        this.maze = new MazeObject[this.columns][this.rows];
 
-        for(int i = 0; i < this.rows; i++) {
-            for(int j = 0; j < this.columns; j++) {
+        for(int i = 0; i < this.columns; i++) {
+            for(int j = 0; j < this.rows; j++) {
                 this.maze[i][j] = new MazeObject(j, i, false);
             }
        }
         this.maze[1][1].setPassable(true);
-        this.maze[1][this.columns - 2].setPassable(true);
-        this.maze[this.rows - 2][this.columns - 2].setPassable(true);
-        this.maze[this.rows - 2][1].setPassable(true);
+        this.maze[1][this.rows - 2].setPassable(true);
+        this.maze[this.columns - 2][this.rows - 2].setPassable(true);
+        this.maze[this.columns - 2][1].setPassable(true);
 
 //        // Spawn location of mouse
 //        this.maze[1][1] = this.mouse;
@@ -179,27 +179,27 @@ public final class MazeBuilder {
 
     private MazeObject getRandomNonVisitedAdjacentPoint(MazeObject currentPoint, HashSet<MazeObject> visited) {
         final int distance = 2;
-        final int currX = currentPoint.getRow();
-        final int currY = currentPoint.getCol();
+        final int currX = currentPoint.getCol();
+        final int currY = currentPoint.getRow();
         final int maxNumOfAdjacentPaths = 4;
 
         ArrayList<MazeObject> nonVisitedAdjacentPoints = new ArrayList<>(maxNumOfAdjacentPaths);
 
         // right
-        if(validPoint(currX + distance, currY) && !visited.contains(this.maze[currY][currX + distance])) {
-            nonVisitedAdjacentPoints.add(this.maze[currY][currX + distance]);
+        if(validPoint(currX + distance, currY) && !visited.contains(this.maze[currX][currY + distance])) {
+            nonVisitedAdjacentPoints.add(this.maze[currX][currY + distance]);
         }
         // left
-        if(validPoint(currX - distance, currY) && !visited.contains(this.maze[currY][currX - distance])) {
-            nonVisitedAdjacentPoints.add(this.maze[currY][currX - distance]);
+        if(validPoint(currX - distance, currY) && !visited.contains(this.maze[currX][currY - distance])) {
+            nonVisitedAdjacentPoints.add(this.maze[currX][currY - distance]);
         }
         // up
-        if(validPoint(currX, currY + distance) && !visited.contains(this.maze[currY + distance][currX])) {
-            nonVisitedAdjacentPoints.add(this.maze[currY + distance][currX]);
+        if(validPoint(currX, currY + distance) && !visited.contains(this.maze[currX + distance][currY])) {
+            nonVisitedAdjacentPoints.add(this.maze[currX + distance][currY]);
         }
         // down
-        if(validPoint(currX, currY - distance) && !visited.contains(this.maze[currY - distance][currX])) {
-            nonVisitedAdjacentPoints.add(this.maze[currY - distance][currX]);
+        if(validPoint(currX, currY - distance) && !visited.contains(this.maze[currX - distance][currY])) {
+            nonVisitedAdjacentPoints.add(this.maze[currX - distance][currY]);
         }
 
         final int min = 0;

@@ -4,8 +4,8 @@ public class Mouse extends MazeObject {
     private int cheeseCollected;
 
 
-    public Mouse(int row, int col) {
-        super(row, col, false, true);
+    public Mouse(int col, int row) {
+        super(col, row, false, true);
         cheeseCollected = 0;
     }
 
