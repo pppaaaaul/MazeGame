@@ -14,11 +14,8 @@ import java.util.*;
  */
 public final class MazeBuilder {
 
-    // TODO: Paul, why are these necessary? Can't you call function in Maze to get these?
     private final int rows;
     private final int columns;
-//    private MazeObject mouse;
-//    private MazeObject[] cats;
     private MazeObject[][] maze;
 
     private final int MIN_ROWS = 4;
@@ -39,13 +36,6 @@ public final class MazeBuilder {
         this.rows = rows;
 
         generateMaze();
-
-//        this.mouse = new MazeObject(1,1,true);
-//        this.cats = new MazeObject[]{
-//            new MazeObject(this.columns - 2,1, true),
-//            new MazeObject(1,this.rows - 2, true),
-//            new MazeObject(this.columns - 2,this.rows - 2, true)
-//        };
     }
 
     public MazeObject[][] getMaze() {
@@ -101,12 +91,12 @@ public final class MazeBuilder {
         int currY = wall.getRow();
 
         // check for parallel walls left and right
-        if(!this.maze[currY][currX + 1].isPassable() && !this.maze[currY][currX - 1].isPassable()) {
+        if(!this.maze[currX + 1][currY].isPassable() && !this.maze[currX - 1][currY].isPassable()) {
             return true;
         }
 
         // check for parallel walls above and below
-        if(!this.maze[currY + 1][currX].isPassable() && !this.maze[currY - 1][currX].isPassable()) {
+        if(!this.maze[currX][currY + 1].isPassable() && !this.maze[currX][currY - 1].isPassable()) {
             return true;
         }
 
@@ -121,21 +111,13 @@ public final class MazeBuilder {
 
         for(int i = 0; i < this.columns; i++) {
             for(int j = 0; j < this.rows; j++) {
-                this.maze[i][j] = new MazeObject(j, i, false);
+                this.maze[i][j] = new MazeObject(i, j, false);
             }
        }
         this.maze[1][1].setPassable(true);
         this.maze[1][this.rows - 2].setPassable(true);
         this.maze[this.columns - 2][this.rows - 2].setPassable(true);
         this.maze[this.columns - 2][1].setPassable(true);
-
-//        // Spawn location of mouse
-//        this.maze[1][1] = this.mouse;
-//
-//        // Spawn locations of cats
-//        this.maze[this.cats[0].getCol()][this.cats[0].getRow()] = this.cats[0];
-//        this.maze[this.cats[1].getCol()][this.cats[1].getRow()] = this.cats[1];
-//        this.maze[this.cats[2].getCol()][this.cats[2].getRow()] = this.cats[2];
     }
 
     /**
@@ -186,20 +168,20 @@ public final class MazeBuilder {
         ArrayList<MazeObject> nonVisitedAdjacentPoints = new ArrayList<>(maxNumOfAdjacentPaths);
 
         // right
-        if(validPoint(currX + distance, currY) && !visited.contains(this.maze[currX][currY + distance])) {
-            nonVisitedAdjacentPoints.add(this.maze[currX][currY + distance]);
-        }
-        // left
-        if(validPoint(currX - distance, currY) && !visited.contains(this.maze[currX][currY - distance])) {
-            nonVisitedAdjacentPoints.add(this.maze[currX][currY - distance]);
-        }
-        // up
-        if(validPoint(currX, currY + distance) && !visited.contains(this.maze[currX + distance][currY])) {
+        if(validPoint(currX + distance, currY) && !visited.contains(this.maze[currX + distance][currY])) {
             nonVisitedAdjacentPoints.add(this.maze[currX + distance][currY]);
         }
-        // down
-        if(validPoint(currX, currY - distance) && !visited.contains(this.maze[currX - distance][currY])) {
+        // left
+        if(validPoint(currX - distance, currY) && !visited.contains(this.maze[currX - distance][currY])) {
             nonVisitedAdjacentPoints.add(this.maze[currX - distance][currY]);
+        }
+        // up
+        if(validPoint(currX, currY + distance) && !visited.contains(this.maze[currX][currY + distance])) {
+            nonVisitedAdjacentPoints.add(this.maze[currX][currY + distance]);
+        }
+        // down
+        if(validPoint(currX, currY - distance) && !visited.contains(this.maze[currX][currY - distance])) {
+            nonVisitedAdjacentPoints.add(this.maze[currX][currY - distance]);
         }
 
         final int min = 0;

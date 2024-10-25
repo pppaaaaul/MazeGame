@@ -20,10 +20,11 @@ public class Main {
 
 
 
-
-        MazeObject[][] maze = new MazeBuilder(15,20).getMaze();
-        for(int i = 0; i < maze.length; i++) {
-            for(int j = 0; j < maze[i].length; j++) {
+        int x = 20;
+        int y = 15;
+        MazeObject[][] maze = new MazeBuilder(x,y).getMaze();
+        for(int i = 0; i < x; i++) {
+            for(int j = 0; j < y; j++) {
                 String c = maze[i][j].isPassable() ? " " : "#";
                 System.out.print(c);
             }
