@@ -2,6 +2,10 @@ package Model.Maze_Objects;
 
 import java.util.Objects;
 
+/**
+ * Represents some entity in the maze, interactable objects (Cat, Cheese, Mouse) will all inherit from
+ * this class. This class will distinguish between wall and path objects using the passable field.
+ */
 public class MazeObject {
     protected int col;
     protected int row;

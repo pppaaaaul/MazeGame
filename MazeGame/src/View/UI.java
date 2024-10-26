@@ -7,6 +7,9 @@ import java.util.Arrays;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
+/**
+ * Displays the maze to user and prompts the user for input to play the maze game.
+ */
 public class UI {
     public UI() { }
     public void displayGreeting() {

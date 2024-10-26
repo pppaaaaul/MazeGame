@@ -8,7 +8,14 @@ import java.util.List;
 import java.util.Iterator;
 import java.util.stream.IntStream;
 
-// implements Iterable<MazeObject>
+
+/**
+ * Represents the entire maze game.
+ * Automatically performs valid movements for cats every turn.
+ * Moves the mouse based on given input.
+ * Repositions the cheese whenever the mouse gets it.
+ * This class uses MazeBuilder to generate the random maze.
+ */
 public class Maze implements Iterable<Cat> {
     final static int NUM_OF_COLUMNS = 15;
     final static int NUM_OF_ROWS = 20;

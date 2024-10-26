@@ -1,5 +1,8 @@
 package Model.Maze_Objects;
 
+/**
+ * Represents the mouse in the maze game and is used to keep track of the number of cheese collected.
+ */
 public class Mouse extends MazeObject {
     private int cheeseCollected;
 
