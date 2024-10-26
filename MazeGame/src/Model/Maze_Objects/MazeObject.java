@@ -3,8 +3,8 @@ package Model.Maze_Objects;
 import java.util.Objects;
 
 /**
- * Class for the MazeObjects: Cat, Cheese, Mouse, Wall and Path (Wall and Path aren't actual objects, just MazeObject
- *      objects with only 2 parameters: Passable (Walls aren't, Paths are) and Visible (All but edges aren't at start)
+ * Represents some entity in the maze, interactable objects (Cat, Cheese, Mouse) will all inherit from
+ *      this class. This class will distinguish between wall and path objects using the passable field.
  * member col: this object's current column in the maze
  * member row: this object's current row in the maze
  * member passable: states whether the object can be passed through (Cat, Cheese, Path) or not (Wall)
@@ -123,8 +123,9 @@ public class MazeObject {
         return this.visible;
     }
 
+
     /**
-     *
+     * Compares MazeObjects based on fields
      * @param o
      * @return
      */
@@ -143,12 +144,14 @@ public class MazeObject {
 
         return this.row == mazeObject.row
                 && this.col == mazeObject.col
-                && this.passable == mazeObject.passable;
+                && this.passable == mazeObject.passable
+                && this.visible == mazeObject.visible;
     }
 
+    // Creates the hashcode of MazeObjects based on fields.
     @Override
     public int hashCode() {
-        return Objects.hash(this.col, this.row, this.passable);
+        return Objects.hash(this.col, this.row, this.passable, this.visible);
     }
 
     /**

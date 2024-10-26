@@ -9,8 +9,12 @@ import java.util.Iterator;
 import java.util.stream.IntStream;
 
 /**
- * The Maze class that contains a board with MazeObjects, the win condition (cheeseNeededToWin)
- *      and game status (gameState) with the states: 'C'=Continue 'W'=Win 'L'=Loss. gameState should be kept uppercase
+ * Game status (gameState) with the states: 'C'=Continue 'W'=Win 'L'=Loss. gameState should be kept uppercase
+ * Represents the entire maze game.
+ * Automatically performs valid movements for cats every turn.
+ * Moves the mouse based on given input.
+ * Repositions the cheese whenever the mouse gets it.
+ * This class uses MazeBuilder to generate the random maze.
  */
 public class Maze implements Iterable<Cat> {
     final static int NUM_OF_COLUMNS = 15;
@@ -177,10 +181,11 @@ public class Maze implements Iterable<Cat> {
         int lastMove = (lastPlace + 2) % 4;
         cat.setLastPosition(lastMove);
 
-        updateVisibilityAroundMouse();
         if (cat.getCol() == mouse.getCol() && cat.getRow() == mouse.getRow()) {
             gameState = 'L';
         }
+
+        updateVisibilityAroundMouse();
     }
 
     /**

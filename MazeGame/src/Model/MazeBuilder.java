@@ -8,7 +8,7 @@ import java.util.*;
  * This class creates a randomized maze, done in the follow steps :
  * Creates a 2d array full of walls except for the four corners which are set as open spaces.
  * Generates the maze using the randomized depth first traversal algorithm.
- * After the maze is generated, 10% of the walls is removed to add cycles and allow more paths in the maze.
+ * After the maze is generated, 12% of the walls is removed to add cycles and allow more paths in the maze.
  * The depth first traversal algorithm will prevent non-connected open cells and prevent both 2x2 squares of open cells
  * and 2x2 squares of walls.
  */
@@ -53,8 +53,8 @@ public final class MazeBuilder {
      * Safely meaning will not result in 2x2 open square.
      */
     private void randomlyRemoveWalls() {
-        // The number of randomly walls removed is 10% of the total number of blocks, not including the outer wall
-        int numOfWallsToRemove = (int)((this.columns - 2) * (this.rows - 2) * 0.1);
+        // The number of randomly walls removed is 12% of the total number of blocks, not including the outer wall
+        int numOfWallsToRemove = (int)((this.columns - 2) * (this.rows - 2) * 0.12);
 
         // add all walls to list
         List<MazeObject> walls = new ArrayList<MazeObject>((this.columns - 2) * (this.rows - 2));
@@ -205,9 +205,6 @@ public final class MazeBuilder {
                 && y >= firstRow && y <= lastRow;
     }
 
-    /**
-     * Removes the wall between two points in maze.
-     */
     private void removeWallBetweenPoints(MazeObject pointA, MazeObject pointB) {
         if(pointA.getRow() + 2 == pointB.getRow()) {
             this.maze[pointA.getCol()][pointA.getRow() + 1].setPassable(true);

@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 /**
  * Class for interacting with the user; getting information from and displaying information to the user
+ * Displays the maze to user and prompts the user for input to play the maze game.
  */
 public class UI {
 

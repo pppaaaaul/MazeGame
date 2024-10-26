@@ -3,6 +3,7 @@ package Model.Maze_Objects;
 /**
  * Class for the Cheese objects
  * Is-a MazeObject
+ * Represents the cheese in the maze game.
  */
 public class Cheese extends MazeObject {
 
