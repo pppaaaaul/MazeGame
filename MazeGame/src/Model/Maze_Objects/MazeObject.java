@@ -126,8 +126,8 @@ public class MazeObject {
 
     /**
      * Compares MazeObjects based on fields
-     * @param o
-     * @return
+     * @param o The object being compared with.
+     * @return If the objects have the same field values.
      */
     @Override
     public boolean equals(Object o) {
@@ -148,7 +148,10 @@ public class MazeObject {
                 && this.visible == mazeObject.visible;
     }
 
-    // Creates the hashcode of MazeObjects based on fields.
+    /**
+     * Creates the hashcode of MazeObjects based on fields.
+     * @return Hashcode for object.
+     */
     @Override
     public int hashCode() {
         return Objects.hash(this.col, this.row, this.passable, this.visible);
