@@ -1,7 +1,7 @@
 package Model.Maze_Objects;
 
 /**
- * 
+ *
  */
 public class Cat extends MazeObject {
     private int lastPosition;

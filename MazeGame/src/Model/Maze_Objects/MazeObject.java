@@ -62,6 +62,7 @@ public class MazeObject {
         return this.visible;
     }
 
+    // Compares MazeOjects based on fields.
     @Override
     public boolean equals(Object o){
         if(o == null) {
@@ -77,12 +78,14 @@ public class MazeObject {
 
         return this.row == mazeObject.row
                 && this.col == mazeObject.col
-                && this.passable == mazeObject.passable;
+                && this.passable == mazeObject.passable
+                && this.visible == mazeObject.visible;
     }
 
+    // Creates the hashcode of MazeObjects based on fields.
     @Override
     public int hashCode() {
-        return Objects.hash(this.col, this.row, this.passable);
+        return Objects.hash(this.col, this.row, this.passable, this.visible);
     }
 
     public void setPassable(boolean passable) {
