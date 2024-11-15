@@ -6,7 +6,6 @@ package Model.Maze_Objects;
  * member: lastPosition direction of last position relevant to current
  * member: occupiedSpaceVisible used to determine whether a space on the grid will show up as ' ' or '.' after the cat
  *                              moves off it
- *
  */
 public class Cat extends MazeObject {
     private int lastPosition;

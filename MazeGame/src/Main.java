@@ -31,7 +31,6 @@ public class Main {
         char input = ui.getUserInput();
         try {
             ui.processUserInput(input, maze);
-            gameLoop(maze, ui);
         } catch (InvalidExpressionException | InvalidMoveException e) {
             System.out.println("Invalid move: " + e);
             processValidUserInputLoop(maze, ui);
