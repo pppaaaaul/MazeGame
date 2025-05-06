@@ -1,4 +1,5 @@
 # MazeGame
+![](Images/ExampleBoard.png)
 
 ## Objective
 Start with a near empty maze with a mouse (you) in the top left corner and three cats (simple tracing bots) in each remaining corner. The goal is to collect 5 cheese wedges around the maze while avoiding the cats.
